@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
         val movies = mutableListOf<Movie>()
         for(i in 0 until 60) {
-            val movie = Movie("https://exemplo.com/$i.jpg")
+            val movie = Movie(R.drawable.movie)
             movies.add(movie)
         }
 
