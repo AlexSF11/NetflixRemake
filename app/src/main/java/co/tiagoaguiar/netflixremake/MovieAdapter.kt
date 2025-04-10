@@ -4,18 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import co.tiagoaguiar.netflixremake.model.Movie
 
-class MainAdapter(private val movies: List<Movie>) : RecyclerView.Adapter<MainAdapter.MovieViewHolder>() {
+// Aqui é lista VERTICAL
+class MovieAdapter(private val movies: List<Movie>) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainAdapter.MovieViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieAdapter.MovieViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
         return MovieViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MainAdapter.MovieViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MovieAdapter.MovieViewHolder, position: Int) {
         val movie= movies[position]
         holder.bind(movie)
     }
