@@ -1,7 +1,10 @@
 package co.tiagoaguiar.netflixremake.util
 
 import android.util.Log
+import java.io.BufferedInputStream
+import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.concurrent.Executors
@@ -28,14 +31,34 @@ class CategoryTask {
                     throw  IOException("Erro na comunicação com o servidor!")
                 }
 
+                val stream = urlConnection.inputStream // Sequencia de bytes
+
                 // Forma 1: simples e rápida
-                val strem = urlConnection.inputStream // Sequencia de bytes
-                val jsonAsString = strem.bufferedReader().use { it.readText() } // Bytes -> Strings
+                //val jsonAsString = strem.bufferedReader().use { it.readText() } // Bytes -> Strings
+
+                // Forma 2
+                val buffer = BufferedInputStream(stream)
+                val jsonAsString = toString(buffer)
+
                 Log.i("Teste", jsonAsString)
 
             } catch (e: IOException) {
                 Log.e("Teste", e.message ?: "Erro desconhecido", e)
             }
         }
+    }
+
+    private fun toString(stream: InputStream) : String {
+        val bytes = ByteArray(1024)
+        val baos = ByteArrayOutputStream()
+        var read: Int
+        while(true) {
+            read = stream.read(bytes)
+            if (read <= 0) {
+                break
+            }
+            baos.write(bytes, 0, read)
+        }
+        return String(baos.toByteArray())
     }
 }
